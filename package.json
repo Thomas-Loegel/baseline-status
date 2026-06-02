@@ -1,0 +1,72 @@
+{
+  "name": "@thomas-loegel/baseline-status",
+  "version": "1.0.0",
+  "description": "Web component zéro-dépendance affichant le statut Baseline (support navigateurs) d'une feature de la plateforme web.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Thomas Loegel <thomas@alsacreations.fr>",
+  "homepage": "https://github.com/Thomas-Loegel/baseline-status#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thomas-Loegel/baseline-status.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Thomas-Loegel/baseline-status/issues"
+  },
+  "keywords": [
+    "web-component",
+    "custom-element",
+    "baseline",
+    "web-platform",
+    "browser-support",
+    "webstatus",
+    "vanilla",
+    "zero-dependency"
+  ],
+  "main": "./dist/baseline-status.umd.cjs",
+  "module": "./dist/baseline-status.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/baseline-status.umd.cjs",
+  "jsdelivr": "./dist/baseline-status.umd.cjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/baseline-status.js",
+      "require": "./dist/baseline-status.umd.cjs",
+      "default": "./dist/baseline-status.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./dist/baseline-status.js",
+    "./dist/baseline-status.umd.cjs"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run typecheck && npm run test"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

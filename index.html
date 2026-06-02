@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>&lt;baseline-status&gt; — playground</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        font: 16px/1.6 system-ui, sans-serif;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 6rem;
+        color-scheme: light dark;
+        color: light-dark(#111, #eee);
+        background: light-dark(#fafafa, #111);
+      }
+
+      h1 { font-size: 1.25rem; margin: 0 0 .25rem; }
+      .subtitle { font-size: .9rem; opacity: .6; margin: 0 0 3rem; }
+
+      section { margin-bottom: 3rem; }
+      h2 {
+        font-size: .75rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        opacity: .45;
+        margin: 0 0 .75rem;
+      }
+
+      .examples { display: grid; gap: .75rem; }
+
+      baseline-status { display: block; }
+
+      /* Live tester */
+      .tester { margin-top: 3rem; }
+      label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .4rem; }
+      input {
+        width: 100%;
+        padding: .5rem .75rem;
+        font: inherit;
+        border: 1px solid light-dark(#ccc, #444);
+        border-radius: 8px;
+        background: light-dark(#fff, #1e1e1e);
+        color: inherit;
+      }
+      input:focus { outline: 2px solid #1a73e8; outline-offset: 1px; border-color: transparent; }
+      .hint { font-size: .75rem; opacity: .5; margin-top: .4rem; }
+    </style>
+  </head>
+  <body>
+
+    <h1>&lt;baseline-status&gt;</h1>
+    <p class="subtitle">Zero-dependency web component — all status states demo</p>
+
+    <section>
+      <h2>Widely available</h2>
+      <div class="examples">
+        <baseline-status featureId="grid"></baseline-status>
+      </div>
+    </section>
+
+    <section>
+      <h2>Newly available</h2>
+      <div class="examples">
+        <baseline-status featureId="view-transitions"></baseline-status>
+      </div>
+    </section>
+
+    <section>
+      <h2>Limited availability</h2>
+      <div class="examples">
+        <baseline-status featureId="text-justify"></baseline-status>
+      </div>
+    </section>
+
+    <section>
+      <h2>Error / Unknown</h2>
+      <div class="examples">
+        <baseline-status featureId="__nonexistent-feature__"></baseline-status>
+      </div>
+    </section>
+
+    <section class="tester">
+      <h2>Live tester</h2>
+      <label for="featureInput">Feature ID</label>
+      <input id="featureInput" value="has" placeholder="e.g. css-nesting, subgrid, has…" />
+      <p class="hint">Type any feature ID from <a href="https://webstatus.dev" target="_blank" rel="noopener">webstatus.dev</a></p>
+      <baseline-status id="live" featureId="has"></baseline-status>
+    </section>
+
+    <script type="module">
+      import '/src/index.ts';
+
+      const input = document.getElementById('featureInput');
+      const live  = document.getElementById('live');
+
+      let timer;
+      input.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          const id = input.value.trim();
+          if (id) live.featureId = id;
+        }, 300);
+      });
+    </script>
+
+  </body>
+</html>
