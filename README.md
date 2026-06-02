@@ -47,15 +47,34 @@ Or the classic self-executing version (plain `<script>` tag without `type=module
 
 ## Attributes
 
-| Attribute   | Type     | Description                                               |
-| ----------- | -------- | --------------------------------------------------------- |
-| `featureId` | `string` | Feature identifier (e.g. `css-nesting`, `subgrid`, `has`) |
+| Attribute   | Type     | Default | Description                                               |
+| ----------- | -------- | ------- | --------------------------------------------------------- |
+| `featureId` | `string` | —       | Feature identifier (e.g. `css-nesting`, `subgrid`, `has`) |
+| `lang`      | `string` | `"en"`  | UI language for labels (`"en"` or `"fr"`)                 |
 
-The JS property `el.featureId` reflects the attribute, useful for dynamic control:
+Both attributes reflect as JS properties, useful for dynamic control:
 
 ```js
-document.querySelector('baseline-status').featureId = 'view-transitions';
+const el = document.querySelector('baseline-status');
+el.featureId = 'view-transitions';
+el.lang = 'fr';
 ```
+
+### Internationalization (i18n)
+
+The `lang` attribute translates all hardcoded UI labels (status titles, descriptions, browser support labels, link text). Data coming from the API (feature name, browser versions) is always displayed as-is.
+
+```html
+<!-- English (default) -->
+<baseline-status featureId="css-nesting"></baseline-status>
+
+<!-- French -->
+<baseline-status featureId="css-nesting" lang="fr"></baseline-status>
+```
+
+Supported locales: `en`, `fr`. Any unknown locale falls back to `en`. Region subtags are accepted and normalized (`fr-FR` → `fr`).
+
+Adding a new locale only requires extending the `translations` object in `src/i18n.ts`.
 
 ## Customization (CSS custom properties)
 
@@ -88,6 +107,7 @@ baseline-status::part(widget) { box-shadow: 0 1px 3px rgba(0,0,0,.1); }
 - **Vanilla / Vue / Svelte / Angular**: works out of the box, `featureId` is a string attribute.
 - **React 19+**: native custom element prop support, `<baseline-status featureId="has" />` works.
 - **React ≤ 18**: pass the value as an attribute (it's a string, so it's handled), or use a `ref`:
+
   ```jsx
   const ref = useRef();
   useEffect(() => { ref.current.featureId = 'has'; }, []);

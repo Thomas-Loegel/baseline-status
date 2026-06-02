@@ -1,27 +1,5 @@
 import type { WidgetStatus } from './types';
 
-/* ─── Textes par statut ─── */
-export const LABELS: Record<string, { badge: string | null; title: string; desc: string }> = {
-  limited: {
-    badge: null,
-    title: 'Limited availability',
-    desc: 'This feature is not Baseline because it does not work in some commonly-used browsers.',
-  },
-  newly: {
-    badge: 'Baseline',
-    title: 'Newly available',
-    desc: 'Since this feature became Baseline, it now works across the latest devices and browser versions.',
-  },
-  widely: {
-    badge: 'Baseline',
-    title: 'Widely available',
-    desc: 'This feature is well established and works across many devices and browser versions.',
-  },
-  loading: { badge: null, title: 'Loading…', desc: '' },
-  error: { badge: null, title: 'Failed to load', desc: 'Could not retrieve feature data.' },
-  unknown: { badge: null, title: 'Unknown availability', desc: 'No browser support data available.' },
-};
-
 export const STATUS_COLORS: Record<WidgetStatus, string> = {
   limited: 'var(--bs-color-limited, #ea8600)',
   newly: 'var(--bs-color-newly,   #1a73e8)',

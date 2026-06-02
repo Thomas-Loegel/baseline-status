@@ -56,30 +56,22 @@
     <p class="subtitle">Zero-dependency web component — all status states demo</p>
 
     <section>
-      <h2>Widely available</h2>
+      <h2>lang="en" (default)</h2>
       <div class="examples">
         <baseline-status featureId="grid"></baseline-status>
-      </div>
-    </section>
-
-    <section>
-      <h2>Newly available</h2>
-      <div class="examples">
         <baseline-status featureId="view-transitions"></baseline-status>
-      </div>
-    </section>
-
-    <section>
-      <h2>Limited availability</h2>
-      <div class="examples">
         <baseline-status featureId="text-justify"></baseline-status>
+        <baseline-status featureId="__nonexistent-feature__"></baseline-status>
       </div>
     </section>
 
     <section>
-      <h2>Error / Unknown</h2>
+      <h2>lang="fr"</h2>
       <div class="examples">
-        <baseline-status featureId="__nonexistent-feature__"></baseline-status>
+        <baseline-status featureId="grid" lang="fr"></baseline-status>
+        <baseline-status featureId="view-transitions" lang="fr"></baseline-status>
+        <baseline-status featureId="text-justify" lang="fr"></baseline-status>
+        <baseline-status featureId="__nonexistent-feature__" lang="fr"></baseline-status>
       </div>
     </section>
 
@@ -87,15 +79,21 @@
       <h2>Live tester</h2>
       <label for="featureInput">Feature ID</label>
       <input id="featureInput" value="has" placeholder="e.g. css-nesting, subgrid, has…" />
+      <label for="langSelect" style="margin-top:.75rem">Language</label>
+      <select id="langSelect" style="width:100%;padding:.5rem .75rem;font:inherit;border:1px solid light-dark(#ccc,#444);border-radius:8px;background:light-dark(#fff,#1e1e1e);color:inherit">
+        <option value="en" selected>en (English)</option>
+        <option value="fr">fr (Français)</option>
+      </select>
       <p class="hint">Type any feature ID from <a href="https://webstatus.dev" target="_blank" rel="noopener">webstatus.dev</a></p>
-      <baseline-status id="live" featureId="has"></baseline-status>
+      <baseline-status id="live" featureId="has" lang="en"></baseline-status>
     </section>
 
     <script type="module">
       import '/src/index.ts';
 
-      const input = document.getElementById('featureInput');
-      const live  = document.getElementById('live');
+      const input  = document.getElementById('featureInput');
+      const select = document.getElementById('langSelect');
+      const live   = document.getElementById('live');
 
       let timer;
       input.addEventListener('input', () => {
@@ -104,6 +102,10 @@
           const id = input.value.trim();
           if (id) live.featureId = id;
         }, 300);
+      });
+
+      select.addEventListener('change', () => {
+        live.lang = select.value;
       });
     </script>
 

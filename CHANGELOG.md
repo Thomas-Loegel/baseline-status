@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- Add `lang` attribute for UI label internationalization (i18n).
+
+  The component now accepts a `lang` attribute (`"en"` | `"fr"`, default `"en"`) that translates all hardcoded UI labels: status titles and descriptions, browser support aria-labels, chip text, and link labels. Data from the API (feature name, browser versions) is unaffected. Unknown locales fall back to `"en"`; region subtags are normalized (`fr-FR` → `fr`).
+
 All notable changes to this project will be documented in this file.
 
 ## [1.0.0] - 2026-06-02
