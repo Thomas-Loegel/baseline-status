@@ -107,6 +107,10 @@ npm run test       # unit tests (vitest)
 npm run build      # build to dist/ (ESM + UMD + types)
 ```
 
+## Acknowledgements
+
+Inspired by [web-platform-dx/baseline-status](https://github.com/web-platform-dx/baseline-status).
+
 ## License
 
 MIT
