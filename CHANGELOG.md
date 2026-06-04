@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0
+
+- **feat** — Add `registerTranslations(lang, translations)` function and `Translations` type to support custom language translations. Built-in French translations have been removed from the bundle — register them externally via `registerTranslations('fr', { … })`.
+- **feat** — Add CSS custom properties for icon sizing:
+  - `--bs-status-icon-size` (default `22px`) — main status icon
+  - `--bs-browser-icon-size` (default `21px`) — browser logos
+  - `--bs-support-icon-size` (default: follows `--bs-browser-icon-size`) — support check/cross icons
+- **fix** — SVG icons: removed hardcoded `width`/`height` attributes and added missing `viewBox` attributes so CSS sizing works correctly across all browsers.
+
 ## 1.1.0
 
 ### Minor Changes

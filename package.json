@@ -1,6 +1,6 @@
 {
   "name": "@thomas-loegel/baseline-status",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Web component zéro-dépendance affichant le statut Baseline (support navigateurs) d'une feature de la plateforme web.",
   "type": "module",
   "license": "MIT",
