@@ -1,7 +1,7 @@
 {
   "name": "@thomas-loegel/baseline-status",
   "version": "1.2.0",
-  "description": "Web component zéro-dépendance affichant le statut Baseline (support navigateurs) d'une feature de la plateforme web.",
+  "description": "Zero-dependency web component displaying the Baseline status and browser support of any web platform feature.",
   "type": "module",
   "license": "MIT",
   "author": "Thomas Loegel <thomas@alsacreations.fr>",
@@ -17,8 +17,11 @@
     "web-component",
     "custom-element",
     "baseline",
+    "status",
     "web-platform",
+    "web-features",
     "browser-support",
+    "widget",
     "webstatus",
     "vanilla",
     "zero-dependency"
