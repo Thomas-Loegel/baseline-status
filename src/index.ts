@@ -1,7 +1,7 @@
 import { BaselineStatus } from './baseline-status';
 
+export type { BaselineLevel, WebStatusFeature, WidgetStatus } from './types';
 export { BaselineStatus };
-export type { WebStatusFeature, BaselineLevel, WidgetStatus } from './types';
 
 /**
  * Enregistre le custom element. Appelée automatiquement à l'import du package,

@@ -24,12 +24,22 @@ export const translations: Record<string, Translations> = {
         desc: 'This feature is well established and works across many devices and browser versions.',
       },
       loading: { title: 'Loading…', desc: '' },
-      error: { title: 'Failed to load', desc: 'Could not retrieve feature data.' },
-      unknown: { title: 'Unknown availability', desc: 'No browser support data available.' },
+      error: {
+        title: 'Failed to load',
+        desc: 'Could not retrieve feature data.',
+      },
+      unknown: {
+        title: 'Unknown availability',
+        desc: 'No browser support data available.',
+      },
     },
     newlyChip: 'Newly available',
     browsersLabel: 'Browser support',
-    browserSupport: { available: 'supported', unavailable: 'not supported', unknown: 'unknown' },
+    browserSupport: {
+      available: 'supported',
+      unavailable: 'not supported',
+      unknown: 'unknown',
+    },
     versionSince: 'since v',
     link: 'View on webstatus.dev',
     newTab: '(new tab)',
@@ -49,12 +59,22 @@ export const translations: Record<string, Translations> = {
         desc: 'Cette fonctionnalité est bien établie et fonctionne sur de nombreux appareils et navigateurs.',
       },
       loading: { title: 'Chargement…', desc: '' },
-      error: { title: 'Échec du chargement', desc: 'Impossible de récupérer les données de la fonctionnalité.' },
-      unknown: { title: 'Disponibilité inconnue', desc: 'Aucune donnée de support navigateur disponible.' },
+      error: {
+        title: 'Échec du chargement',
+        desc: 'Impossible de récupérer les données de la fonctionnalité.',
+      },
+      unknown: {
+        title: 'Disponibilité inconnue',
+        desc: 'Aucune donnée de support navigateur disponible.',
+      },
     },
     newlyChip: 'Nouvellement disponible',
     browsersLabel: 'Support navigateurs',
-    browserSupport: { available: 'supporté', unavailable: 'non supporté', unknown: 'inconnu' },
+    browserSupport: {
+      available: 'supporté',
+      unavailable: 'non supporté',
+      unknown: 'inconnu',
+    },
     versionSince: 'depuis v',
     link: 'Voir sur webstatus.dev',
     newTab: '(nouvel onglet)',
@@ -64,5 +84,5 @@ export const translations: Record<string, Translations> = {
 /** Retourne les traductions pour la locale donnée, avec fallback sur "en". */
 export function getTranslations(lang: string): Translations {
   const normalized = lang.split('-')[0].toLowerCase();
-  return translations[normalized] ?? translations['en'];
+  return translations[normalized] ?? translations.en;
 }

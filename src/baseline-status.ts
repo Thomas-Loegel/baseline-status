@@ -1,21 +1,31 @@
-import type { WebStatusFeature, WidgetStatus } from './types';
-import type { Translations } from './i18n';
-import { esc, safeUrl, toYear, getBrowserStatus } from './utils';
 import { STATUS_COLORS, STYLES } from './constants';
+import type { Translations } from './i18n';
 import { getTranslations } from './i18n';
-import { BROWSER_ICONS, BROWSER_NAMES, SUPPORT_ICONS, CHEVRON_ICON } from './icons';
+import {
+  BROWSER_ICONS,
+  BROWSER_NAMES,
+  CHEVRON_ICON,
+  SUPPORT_ICONS,
+} from './icons';
+import type { WebStatusFeature, WidgetStatus } from './types';
+import { esc, getBrowserStatus, safeUrl, toYear } from './utils';
 
 const API = 'https://api.webstatus.dev/v1/features/';
 const BROWSERS = ['chrome', 'edge', 'firefox', 'safari'] as const;
 
 /* ─── Rendu ─── */
 
-function renderBrowsers(feature: WebStatusFeature, color: string, t: Translations): string {
+function renderBrowsers(
+  feature: WebStatusFeature,
+  color: string,
+  t: Translations,
+): string {
   return BROWSERS.map((b) => {
     const st = getBrowserStatus(feature, b);
     const version = feature?.browser_implementations?.[b]?.version ?? '';
     const supportIcon = SUPPORT_ICONS[st] ?? SUPPORT_ICONS.no_data;
-    const iconColor = st === 'available' ? color : st === 'unavailable' ? '#ea8600' : '#aaa';
+    const iconColor =
+      st === 'available' ? color : st === 'unavailable' ? '#ea8600' : '#aaa';
     const statusLabel =
       st === 'available'
         ? t.browserSupport.available
@@ -42,13 +52,18 @@ function renderStatusIcon(status: WidgetStatus, color: string): string {
   return `<svg width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/><path stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7.5 12.5 3 3 6-6"/></svg>`;
 }
 
-function renderWidget(feature: WebStatusFeature | null, status: WidgetStatus, t: Translations): string {
-  const statusLabel = t.status[status] ?? t.status['unknown'];
+function renderWidget(
+  feature: WebStatusFeature | null,
+  status: WidgetStatus,
+  t: Translations,
+): string {
+  const statusLabel = t.status[status] ?? t.status.unknown;
   const color = STATUS_COLORS[status] || STATUS_COLORS.unknown;
   const featureName = feature?.name ? esc(feature.name) : '';
   const fallbackUrl = `https://webstatus.dev/features/${encodeURIComponent(feature?.feature_id ?? '')}`;
   const wptLink = safeUrl(feature?.spec?.links?.[0]?.link, fallbackUrl);
-  const hasData = !!feature && !['loading', 'error', 'unknown'].includes(status);
+  const hasData =
+    !!feature && !['loading', 'error', 'unknown'].includes(status);
 
   const titleText =
     status === 'newly' && feature?.baseline?.low_date
@@ -147,7 +162,11 @@ export class BaselineStatus extends HTMLElement {
     this.#controller?.abort();
   }
 
-  attributeChangedCallback(_name: string, oldVal: string | null, newVal: string | null): void {
+  attributeChangedCallback(
+    _name: string,
+    oldVal: string | null,
+    newVal: string | null,
+  ): void {
     if (oldVal !== newVal && this.isConnected) this.#fetch();
   }
 
@@ -188,10 +207,18 @@ export class BaselineStatus extends HTMLElement {
     this.#render(renderWidget(null, 'loading', t));
 
     try {
-      const res = await fetch(`${API}${encodeURIComponent(id)}`, { signal: this.#controller.signal });
+      const res = await fetch(`${API}${encodeURIComponent(id)}`, {
+        signal: this.#controller.signal,
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as WebStatusFeature;
-      this.#render(renderWidget(data, (data?.baseline?.status as WidgetStatus) ?? 'unknown', t));
+      this.#render(
+        renderWidget(
+          data,
+          (data?.baseline?.status as WidgetStatus) ?? 'unknown',
+          t,
+        ),
+      );
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
       this.#render(renderWidget(null, 'error', t));

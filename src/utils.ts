@@ -32,7 +32,10 @@ export function toYear(iso?: string): string {
 export type BrowserSupport = 'available' | 'unavailable' | 'no_data';
 
 /** Détermine l'état de support d'un navigateur donné pour une feature. */
-export function getBrowserStatus(feature: WebStatusFeature, browserId: string): BrowserSupport {
+export function getBrowserStatus(
+  feature: WebStatusFeature,
+  browserId: string,
+): BrowserSupport {
   try {
     const impl = feature.browser_implementations?.[browserId];
     if (!impl) return 'unavailable';
