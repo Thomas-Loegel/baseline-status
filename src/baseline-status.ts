@@ -5,8 +5,8 @@ import {
   BROWSER_ICONS,
   BROWSER_NAMES,
   CHEVRON_ICON,
-  SUPPORT_ICONS,
   getStatusIcon,
+  SUPPORT_ICONS,
 } from './icons';
 import type { WebStatusFeature, WidgetStatus } from './types';
 import { esc, getBrowserStatus, safeUrl, toYear } from './utils';
@@ -44,7 +44,10 @@ function renderBrowsers(
 }
 
 function renderStatusIcon(status: WidgetStatus, color: string): string {
-  const statusMap: Record<WidgetStatus, 'loading' | 'error' | 'unknown' | 'limited' | 'available'> = {
+  const statusMap: Record<
+    WidgetStatus,
+    'loading' | 'error' | 'unknown' | 'limited' | 'available'
+  > = {
     loading: 'loading',
     error: 'error',
     unknown: 'unknown',
