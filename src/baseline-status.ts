@@ -44,12 +44,12 @@ function renderBrowsers(
 
 function renderStatusIcon(status: WidgetStatus, color: string): string {
   if (status === 'loading')
-    return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="2" stroke-dasharray="31.4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></circle></svg>`;
+    return `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="2" stroke-dasharray="31.4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></circle></svg>`;
   if (status === 'error' || status === 'unknown')
-    return `<svg width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/><path stroke="${color}" stroke-linecap="round" stroke-width="2" d="M12 8v4m0 4h.01"/></svg>`;
+    return `<svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/><path stroke="${color}" stroke-linecap="round" stroke-width="2" d="M12 8v4m0 4h.01"/></svg>`;
   if (status === 'limited')
-    return `<svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="${color}" stroke-linejoin="round" stroke-width="1.5" d="M12 3 2 20h20z"/><path stroke="${color}" stroke-linecap="round" stroke-width="2" d="M12 10v4m0 3h.01"/></svg>`;
-  return `<svg width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/><path stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7.5 12.5 3 3 6-6"/></svg>`;
+    return `<svg fill="none" viewBox="0 0 24 24"><path stroke="${color}" stroke-linejoin="round" stroke-width="1.5" d="M12 3 2 20h20z"/><path stroke="${color}" stroke-linecap="round" stroke-width="2" d="M12 10v4m0 3h.01"/></svg>`;
+  return `<svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/><path stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7.5 12.5 3 3 6-6"/></svg>`;
 }
 
 function renderWidget(
@@ -155,7 +155,8 @@ export class BaselineStatus extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.#fetch();
+    // Defer so registerTranslations() calls in the same module script run first.
+    queueMicrotask(() => this.#fetch());
   }
 
   disconnectedCallback(): void {

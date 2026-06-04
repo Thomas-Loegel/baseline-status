@@ -58,6 +58,7 @@ export const STYLES = `
 
   /* Status icon */
   .status-icon { flex-shrink: 0; display: flex; align-items: center; }
+  .status-icon svg { width: var(--bs-status-icon-size, 22px); height: var(--bs-status-icon-size, 22px); }
 
   /* Info (title + badge + feature name) */
   .info { flex: 1; min-width: 0; }
@@ -101,7 +102,8 @@ export const STYLES = `
     align-items: flex-end;
     gap: 1px;
   }
-  .browser-icon svg, .browser-support svg { display: block; }
+  .browser-icon svg { display: block; height: var(--bs-browser-icon-size, 21px); width: auto; }
+  .browser-support svg { display: block; height: var(--bs-support-icon-size, var(--bs-browser-icon-size, 21px)); width: auto; }
 
   /* Chevron */
   .chevron {
@@ -109,6 +111,7 @@ export const STYLES = `
     color: var(--bs-muted, light-dark(#888, #666));
     transition: transform .2s ease;
   }
+  .chevron svg { display: block; width: 16px; height: 16px; }
   details[open] .chevron { transform: rotate(180deg); }
 
   /* Expandable section */
