@@ -47,10 +47,10 @@ Or the classic self-executing version (plain `<script>` tag without `type=module
 
 ## Attributes
 
-| Attribute   | Type     | Default | Description                                               |
-| ----------- | -------- | ------- | --------------------------------------------------------- |
-| `featureId` | `string` | —       | Feature identifier (e.g. `css-nesting`, `subgrid`, `has`) |
-| `lang`      | `string` | `"en"`  | UI language for labels (`"en"` or `"fr"`)                 |
+| Attribute   | Type     | Default | Description                                                      |
+| ----------- | -------- | ------- | ---------------------------------------------------------------- |
+| `featureId` | `string` | —       | Feature identifier (e.g. `css-nesting`, `subgrid`, `has`)        |
+| `lang`      | `string` | `"en"`  | UI language for labels (see [i18n](#internationalization-i18n))  |
 
 Both attributes reflect as JS properties, useful for dynamic control:
 
@@ -62,19 +62,46 @@ el.lang = 'fr';
 
 ### Internationalization (i18n)
 
-The `lang` attribute translates all hardcoded UI labels (status titles, descriptions, browser support labels, link text). Data coming from the API (feature name, browser versions) is always displayed as-is.
+The component ships with English (`en`) as the only built-in locale. All other languages can be added at runtime using `registerTranslations` — this keeps the bundle lean and avoids any opinion on which languages to support.
+
+```js
+import { registerTranslations } from '@thomas-loegel/baseline-status';
+
+registerTranslations('fr', {
+  status: {
+    limited:  { title: 'Disponibilité limitée',    desc: "Cette fonctionnalité n'est pas Baseline car elle ne fonctionne pas dans certains navigateurs courants." },
+    newly:    { title: 'Nouvellement disponible',  desc: 'Depuis que cette fonctionnalité est devenue Baseline, elle fonctionne sur les derniers appareils et navigateurs.' },
+    widely:   { title: 'Largement disponible',     desc: 'Cette fonctionnalité est bien établie et fonctionne sur de nombreux appareils et navigateurs.' },
+    loading:  { title: 'Chargement…',              desc: '' },
+    error:    { title: 'Échec du chargement',      desc: 'Impossible de récupérer les données de la fonctionnalité.' },
+    unknown:  { title: 'Disponibilité inconnue',   desc: 'Aucune donnée de support navigateur disponible.' },
+  },
+  newlyChip:      'Nouvellement disponible',
+  browsersLabel:  'Support navigateurs',
+  browserSupport: { available: 'supporté', unavailable: 'non supporté', unknown: 'inconnu' },
+  versionSince:   'depuis v',
+  link:           'Voir sur webstatus.dev',
+  newTab:         '(nouvel onglet)',
+});
+```
+
+Then use the `lang` attribute as usual:
 
 ```html
-<!-- English (default) -->
-<baseline-status featureId="css-nesting"></baseline-status>
-
-<!-- French -->
 <baseline-status featureId="css-nesting" lang="fr"></baseline-status>
 ```
 
-Supported locales: `en`, `fr`. Any unknown locale falls back to `en`. Region subtags are accepted and normalized (`fr-FR` → `fr`).
+The `Translations` type is exported for full TypeScript support:
 
-Adding a new locale only requires extending the `translations` object in `src/i18n.ts`.
+```ts
+import { registerTranslations } from '@thomas-loegel/baseline-status';
+import type { Translations } from '@thomas-loegel/baseline-status';
+
+const de: Translations = { /* … */ };
+registerTranslations('de', de);
+```
+
+Any unknown locale falls back to `en`. Region subtags are accepted and normalized (`fr-FR` → `fr`).
 
 ## Customization (CSS custom properties)
 

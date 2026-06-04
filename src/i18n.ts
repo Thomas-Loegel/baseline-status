@@ -8,7 +8,7 @@ export interface Translations {
   newTab: string;
 }
 
-export const translations: Record<string, Translations> = {
+const translations: Record<string, Translations> = {
   en: {
     status: {
       limited: {
@@ -44,44 +44,14 @@ export const translations: Record<string, Translations> = {
     link: 'View on webstatus.dev',
     newTab: '(new tab)',
   },
-  fr: {
-    status: {
-      limited: {
-        title: 'Disponibilité limitée',
-        desc: "Cette fonctionnalité n'est pas Baseline car elle ne fonctionne pas dans certains navigateurs courants.",
-      },
-      newly: {
-        title: 'Nouvellement disponible',
-        desc: 'Depuis que cette fonctionnalité est devenue Baseline, elle fonctionne sur les derniers appareils et navigateurs.',
-      },
-      widely: {
-        title: 'Largement disponible',
-        desc: 'Cette fonctionnalité est bien établie et fonctionne sur de nombreux appareils et navigateurs.',
-      },
-      loading: { title: 'Chargement…', desc: '' },
-      error: {
-        title: 'Échec du chargement',
-        desc: 'Impossible de récupérer les données de la fonctionnalité.',
-      },
-      unknown: {
-        title: 'Disponibilité inconnue',
-        desc: 'Aucune donnée de support navigateur disponible.',
-      },
-    },
-    newlyChip: 'Nouvellement disponible',
-    browsersLabel: 'Support navigateurs',
-    browserSupport: {
-      available: 'supporté',
-      unavailable: 'non supporté',
-      unknown: 'inconnu',
-    },
-    versionSince: 'depuis v',
-    link: 'Voir sur webstatus.dev',
-    newTab: '(nouvel onglet)',
-  },
 };
 
-/** Retourne les traductions pour la locale donnée, avec fallback sur "en". */
+/** Registers a locale so the component can use it via the `lang` attribute. */
+export function registerTranslations(lang: string, t: Translations): void {
+  translations[lang.split('-')[0].toLowerCase()] = t;
+}
+
+/** Returns translations for the given locale, falling back to `en`. */
 export function getTranslations(lang: string): Translations {
   const normalized = lang.split('-')[0].toLowerCase();
   return translations[normalized] ?? translations.en;
