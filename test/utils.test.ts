@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getTranslations, registerTranslations } from '../src/i18n';
 import type { Translations } from '../src/i18n';
+import { getTranslations, registerTranslations } from '../src/i18n';
 import type { WebStatusFeature } from '../src/types';
 import { esc, getBrowserStatus, safeUrl, toYear } from '../src/utils';
 
@@ -82,7 +82,11 @@ describe('getTranslations', () => {
       },
       newlyChip: 'Neu verfügbar',
       browsersLabel: 'Browserunterstützung',
-      browserSupport: { available: 'unterstützt', unavailable: 'nicht unterstützt', unknown: 'unbekannt' },
+      browserSupport: {
+        available: 'unterstützt',
+        unavailable: 'nicht unterstützt',
+        unknown: 'unbekannt',
+      },
       versionSince: 'seit v',
       link: 'Auf webstatus.dev ansehen',
       newTab: '(neues Tab)',
@@ -97,23 +101,42 @@ describe('getTranslations', () => {
     expect(getTranslations('DE')).toBe(getTranslations('de'));
   });
   it('les traductions "en" couvrent tous les statuts requis', () => {
-    const required = ['limited', 'newly', 'widely', 'loading', 'error', 'unknown'];
+    const required = [
+      'limited',
+      'newly',
+      'widely',
+      'loading',
+      'error',
+      'unknown',
+    ];
     const t = getTranslations('en');
     for (const status of required) {
       expect(t.status[status], `en.status.${status}`).toBeDefined();
-      expect(typeof t.status[status].title, `en.status.${status}.title`).toBe('string');
-      expect(typeof t.status[status].desc, `en.status.${status}.desc`).toBe('string');
+      expect(typeof t.status[status].title, `en.status.${status}.title`).toBe(
+        'string',
+      );
+      expect(typeof t.status[status].desc, `en.status.${status}.desc`).toBe(
+        'string',
+      );
     }
   });
   it('les traductions "en" ont les champs UI requis', () => {
-    const uiFields = ['newlyChip', 'browsersLabel', 'versionSince', 'link', 'newTab'] as const;
+    const uiFields = [
+      'newlyChip',
+      'browsersLabel',
+      'versionSince',
+      'link',
+      'newTab',
+    ] as const;
     const t = getTranslations('en');
     for (const field of uiFields) {
       expect(typeof t[field], `en.${field}`).toBe('string');
     }
     const support = ['available', 'unavailable', 'unknown'] as const;
     for (const key of support) {
-      expect(typeof t.browserSupport[key], `en.browserSupport.${key}`).toBe('string');
+      expect(typeof t.browserSupport[key], `en.browserSupport.${key}`).toBe(
+        'string',
+      );
     }
   });
 });

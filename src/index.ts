@@ -1,8 +1,8 @@
 import { BaselineStatus } from './baseline-status';
 
-export type { BaselineLevel, WebStatusFeature, WidgetStatus } from './types';
 export type { Translations } from './i18n';
 export { registerTranslations } from './i18n';
+export type { BaselineLevel, WebStatusFeature, WidgetStatus } from './types';
 export { BaselineStatus };
 
 /**
