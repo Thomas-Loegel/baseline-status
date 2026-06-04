@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+- **chore** — Align release tag with main branch.
+
 ## 1.2.1
 
 - **fix** — Resolve SVG `id` collisions when multiple browser icons are inlined together: Firefox and Safari gradient/clip-path IDs are now namespaced per browser, preventing Safari from rendering as a black mask.
