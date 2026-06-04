@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1
+
+- **fix** — Resolve SVG `id` collisions when multiple browser icons are inlined together: Firefox and Safari gradient/clip-path IDs are now namespaced per browser, preventing Safari from rendering as a black mask.
+- **perf** — Replace browser SVG icons with lighter, higher-fidelity versions (Safari: −72% raw size). Status icons (`loading`, `error`, `limited`, `available`) extracted from the component into a dedicated `getStatusIcon` helper.
+
 ## 1.2.0
 
 - **feat** — Add `registerTranslations(lang, translations)` function and `Translations` type to support custom language translations. Built-in French translations have been removed from the bundle — register them externally via `registerTranslations('fr', { … })`.
