@@ -9,12 +9,27 @@
 
       body {
         font: 16px/1.6 system-ui, sans-serif;
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 3rem 1.5rem 6rem;
+        margin: 2rem 0;
         color-scheme: light dark;
         color: light-dark(#111, #eee);
         background: light-dark(#fafafa, #111);
+
+        --liquid-min-margin: var(--spacing-16, 1rem);
+        --liquid-content: var(--spacing-2xl, 98rem);
+        --layout-gap: 0;
+
+        display: grid;
+        grid-template-columns:
+          [liquid-start] minmax(var(--liquid-min-margin), 1fr)
+          [content-start] minmax(0, calc(var(--liquid-content) / 2))
+          [half] minmax(0, calc(var(--liquid-content) / 2))
+          [content-end] minmax(var(--liquid-min-margin), 1fr)
+          [liquid-end];
+        gap: var(--layout-gap);
+
+        :where(& > *) {
+          grid-column: content;
+        }
       }
 
       .header {
@@ -24,10 +39,21 @@
         gap: 1rem;
         margin-bottom: .25rem;
       }
-      h1 { font-size: 1.25rem; margin: 0; }
-      .subtitle { font-size: .9rem; margin: 0 0 3rem; }
 
-      section { margin-bottom: 3rem; }
+      h1 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      .subtitle {
+        font-size: .9rem;
+        margin: 0 0 3rem;
+      }
+
+      section {
+        margin-bottom: 3rem;
+      }
+
       h2 {
         font-size: 1rem;
         font-weight: 700;
@@ -51,7 +77,7 @@
       baseline-status { display: block; }
 
       /* Live tester */
-      .tester { margin-top: 3rem; }
+      .tester { margin-top: 3rem; border-bottom: 1px solid light-dark(#ccc, #444); padding: 1rem 1rem 3rem 1rem; }
       label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .4rem; }
       input {
         width: 100%;
@@ -63,7 +89,7 @@
         color: inherit;
       }
       input:focus { outline: 2px solid #1a73e8; outline-offset: 1px; border-color: transparent; }
-      .hint { font-size: .85rem; margin-top: .4rem; }
+      .hint { font-size: .85rem; margin-top: .4rem; margin-bottom: 2rem; }
 
       .lang-switcher { display: flex; gap: .5rem; }
       .lang-switcher button {
@@ -113,15 +139,6 @@
         <baseline-status featureId="view-transitions"></baseline-status>
         <baseline-status featureId="text-justify"></baseline-status>
         <baseline-status featureId="__nonexistent-feature__"></baseline-status>
-      </div>
-    </section>
-
-    <section>
-      <h2>Custom icon sizes</h2>
-      <div class="examples">
-        <baseline-status featureId="grid"></baseline-status>
-        <baseline-status featureId="grid" style="--bs-status-icon-size:32px;--bs-browser-icon-size:32px"></baseline-status>
-        <baseline-status featureId="grid" style="--bs-status-icon-size:42px;--bs-browser-icon-size:42px"></baseline-status>
       </div>
     </section>
 

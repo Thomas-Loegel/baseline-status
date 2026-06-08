@@ -5,7 +5,6 @@ import {
   BROWSER_ICONS,
   BROWSER_NAMES,
   CHEVRON_ICON,
-  getStatusIcon,
   SUPPORT_ICONS,
 } from './icons';
 import type { WebStatusFeature, WidgetStatus } from './types';
@@ -43,21 +42,6 @@ function renderBrowsers(
   }).join('');
 }
 
-function renderStatusIcon(status: WidgetStatus, color: string): string {
-  const statusMap: Record<
-    WidgetStatus,
-    'loading' | 'error' | 'unknown' | 'limited' | 'available'
-  > = {
-    loading: 'loading',
-    error: 'error',
-    unknown: 'unknown',
-    limited: 'limited',
-    newly: 'available',
-    widely: 'available',
-  };
-  return getStatusIcon(statusMap[status], color);
-}
-
 function renderWidget(
   feature: WebStatusFeature | null,
   status: WidgetStatus,
@@ -85,15 +69,19 @@ function renderWidget(
       ? `<span class="newly-chip" style="background:${color}">${t.newlyChip}</span>`
       : '';
 
+  const chevronHtml = hasData
+    ? `<span class="chevron" aria-hidden="true">${CHEVRON_ICON}</span>`
+    : '';
+
   const statusSection = `
-    <span class="status-icon" aria-hidden="true">${renderStatusIcon(status, color)}</span>
+    <div class="title-row">
+    <span class="title">${featureName || titleText}</span>
+    ${chevronHtml}
+    </div>
+  
     <div class="info">
-      <div class="title-row">
-        ${badgeHtml}
-        <span class="title">${titleText}</span>
-      </div>
-      ${newlyChip}
-      ${featureName ? `<div class="feature-name">${featureName}</div>` : ''}
+      ${badgeHtml || newlyChip ? `<div class="badges-row">${badgeHtml}${newlyChip}</div>` : ''}
+      ${featureName ? `<div class="feature-name">${titleText}</div>` : ''}
     </div>`;
 
   if (!hasData) {
@@ -109,9 +97,11 @@ function renderWidget(
     <details class="widget" part="widget">
       <summary>
         ${statusSection}
-        <div class="browsers" role="list" aria-label="${t.browsersLabel}">${browserRow}</div>
-        <span class="chevron" aria-hidden="true">${CHEVRON_ICON}</span>
+        <div class="browsers" role="list" aria-label="${t.browsersLabel}">
+          ${browserRow}
+        </div>
       </summary>
+
       <div class="expandable">
         <p class="desc">${statusLabel.desc}</p>
         <a class="link" href="${wptLink}" target="_blank" rel="noopener noreferrer">
